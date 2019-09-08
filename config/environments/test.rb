@@ -49,4 +49,5 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   config.hosts << 'api.piggybank.test'
+  config.hosts << 'www.example.com' # tests
 end
