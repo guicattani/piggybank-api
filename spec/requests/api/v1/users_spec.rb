@@ -31,11 +31,8 @@ RSpec.describe 'Users API', type: :request do
       end
     end
   end
-
   describe 'POST /users' do
     before do
-      # params = { "user": user_params }
-
       post "/v1/users", params: { user: user_params }
     end
 
@@ -47,6 +44,59 @@ RSpec.describe 'Users API', type: :request do
       end
       it 'returns json with created user data' do
         expect(parsed_attributes['email']).to eq(user_params[:email])
+      end
+    end
+
+    context 'when request params are not valid' do
+      let(:user_params) { FactoryBot.attributes_for(:user, email: "invalid") }
+
+      it 'returns json with created user data' do
+        expect(response).to have_http_status(422)
+      end
+
+      it 'returns json with created user data' do
+        expect(parsed_response).to have_key('errors')
+      end
+    end
+  end
+  describe 'PUT /users/:id' do
+    before do
+      put "/v1/users/#{user_id}", params: { user: user_params }
+    end
+
+    context 'when request params are valid' do
+      let(:user_params) { { id: user_id, email: "newmail@mail.com" } }
+
+      it 'returns status 200' do
+        expect(response).to have_http_status(200)
+      end
+
+      it 'returns json with updated user data' do
+        expect(parsed_attributes['email']).to eq(user_params[:email])
+      end
+    end
+
+    context 'when request params are not valid' do
+      let(:user_params) { { id: user_id, email: "invalid" } }
+
+      it 'returns status 422' do
+        expect(response).to have_http_status(422)
+      end
+    end
+  end
+  describe 'DELETE /users/:id' do
+    before do
+      delete "/v1/users/#{user_id}", params: { user: user_params }
+    end
+
+    context 'when request params are valid' do
+      let(:user_params) { { id: user_id } }
+      it 'returns status 204' do
+        expect(response).to have_http_status(204)
+      end
+
+      it 'user is deleted for good' do
+        expect(User.find_by(id: user_id)).to be_nil
       end
     end
   end

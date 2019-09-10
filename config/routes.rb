@@ -8,7 +8,7 @@ Rails.application.routes.draw do
             constraints: { subdomain: 'api' },
             path: '/' do
     namespace :v1 do
-      resources :users, only: [:show, :create]
+      resources :users, only: [:show, :create, :update, :destroy]
     end
   end
 end

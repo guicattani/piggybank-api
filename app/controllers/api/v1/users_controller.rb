@@ -13,9 +13,27 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
+    user = User.new(user_params)
+    if user.save
+      render json: serialize(user).serialized_json, status: :created
+    else
+      render json: { errors: user.errors }, status: :unprocessable_entity
+    end
+  end
 
-    render json: serialize(@user).serialized_json, status: :created if @user.save
+  def update
+    user = User.find(params[:id])
+    if user.update(user_params)
+      render json: serialize(user).serialized_json, status: :ok
+    else
+      render json: { errors: user.errors }, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    user = User.find(params[:id])
+    user.destroy
+    head :no_content
   end
 
   private
