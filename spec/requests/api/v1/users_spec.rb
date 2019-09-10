@@ -10,14 +10,12 @@ RSpec.describe 'Users API', type: :request do
 
   describe 'GET /users/:id' do
     before do
-      headers = { 'Accept' => 'application/vnd.piggybank.v1' }
-      get "/users/#{user_id}", headers: headers
+      get "/v1/users/#{user_id}", headers: headers
     end
 
     context 'when user exists' do
       it 'returns user' do
-        user_response = JSON.parse(response.body)
-        expect(user_response['id']).to eq(user_id)
+        expect(parsed_attributes['email']).to eq(user.email)
       end
 
       it 'returns status 200' do
@@ -30,6 +28,25 @@ RSpec.describe 'Users API', type: :request do
 
       it 'returns status 404' do
         expect(response).to have_http_status(404)
+      end
+    end
+  end
+
+  describe 'POST /users' do
+    before do
+      # params = { "user": user_params }
+
+      post "/v1/users", params: { user: user_params }
+    end
+
+    context 'when request params are valid' do
+      let(:user_params) { FactoryBot.attributes_for(:user) }
+
+      it 'returns status 201 created' do
+        expect(response).to have_http_status(201)
+      end
+      it 'returns json with created user data' do
+        expect(parsed_attributes['email']).to eq(user_params[:email])
       end
     end
   end

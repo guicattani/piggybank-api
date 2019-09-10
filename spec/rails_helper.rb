@@ -5,6 +5,11 @@ require 'spec_helper'
 require 'shoulda/matchers'
 require 'rspec/rails'
 
+Dir[File.dirname(__FILE__) + '/support/**/*.rb'].each { |f| require f }
+Dir[File.dirname(__FILE__) + '/helpers/**/*.rb'].each { |f| require f }
+
+include JsonAPIHelper
+
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../config/environment', __dir__)
 abort('The Rails environment production mode!') if Rails.env.production?

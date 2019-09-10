@@ -6,8 +6,25 @@ class Api::V1::UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    respond_with @user
+
+    render json: serialize(@user).serialized_json, status: :ok
   rescue ActiveRecord::RecordNotFound
-    head 404
+    head :not_found
+  end
+
+  def create
+    @user = User.new(user_params)
+
+    render json: serialize(@user).serialized_json, status: :created if @user.save
+  end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:email, :password, :password_confirmation)
+  end
+
+  def serialize(user)
+    V1::UserSerializer.new(user)
   end
 end
