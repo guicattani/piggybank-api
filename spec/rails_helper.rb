@@ -4,6 +4,9 @@
 require 'spec_helper'
 require 'shoulda/matchers'
 require 'rspec/rails'
+require 'factory_bot'
+require 'database_cleaner'
+require 'faker'
 
 Dir[File.dirname(__FILE__) + '/support/**/*.rb'].each { |f| require f }
 Dir[File.dirname(__FILE__) + '/helpers/**/*.rb'].each { |f| require f }
@@ -11,7 +14,6 @@ Dir[File.dirname(__FILE__) + '/helpers/**/*.rb'].each { |f| require f }
 include JsonAPIHelper
 
 ENV['RAILS_ENV'] ||= 'test'
-require File.expand_path('../config/environment', __dir__)
 abort('The Rails environment production mode!') if Rails.env.production?
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -67,8 +69,6 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
-  config.include FactoryBot::Syntax::Methods
-
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
@@ -78,6 +78,12 @@ RSpec.configure do |config|
     DatabaseCleaner.cleaning do
       example.run
     end
+  end
+
+  config.include FactoryBot::Syntax::Methods
+
+  config.before(:suite) do
+    FactoryBot.find_definitions
   end
 
   config.include(Shoulda::Matchers::ActiveModel, type: :model)
