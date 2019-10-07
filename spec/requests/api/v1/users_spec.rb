@@ -31,6 +31,7 @@ RSpec.describe 'Users API', type: :request do
       end
     end
   end
+
   describe 'POST /users' do
     before do
       post "/v1/users", params: { user: user_params }
@@ -59,6 +60,7 @@ RSpec.describe 'Users API', type: :request do
       end
     end
   end
+
   describe 'PUT /users/:id' do
     before do
       put "/v1/users/#{user_id}", params: { user: user_params }
@@ -84,6 +86,7 @@ RSpec.describe 'Users API', type: :request do
       end
     end
   end
+
   describe 'DELETE /users/:id' do
     before do
       delete "/v1/users/#{user_id}", params: { user: user_params }

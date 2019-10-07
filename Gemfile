@@ -39,11 +39,12 @@ end
 
 group :test do
   gem 'database_cleaner'
-  gem 'factory_bot_rails'
+  gem 'factory_bot'
   gem 'faker'
   gem 'pry', '~> 0.12.2'
   gem 'rspec-rails', '~> 4.0.0.beta2'
   gem 'shoulda-matchers'
+  gem 'guard-rspec', require: false
 end
 
 gem 'devise'

@@ -81,7 +81,6 @@ RSpec.configure do |config|
   end
 
   config.include FactoryBot::Syntax::Methods
-
   config.before(:suite) do
     FactoryBot.find_definitions
   end
