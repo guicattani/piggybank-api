@@ -45,6 +45,7 @@ group :test do
   gem 'rspec-rails', '~> 4.0.0.beta2'
   gem 'shoulda-matchers'
   gem 'guard-rspec', require: false
+  gem 'simplecov', require: false
 end
 
 gem 'devise'

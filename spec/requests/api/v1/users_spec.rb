@@ -5,6 +5,12 @@ require 'rails_helper'
 RSpec.describe 'Users API', type: :request do
   let!(:user) { FactoryBot.create(:user) }
   let(:user_id) { user.id }
+  let(:headers) do
+    {
+      'Accept' => 'application/vnd.piggybank.v1',
+      'Content-Type' => Mime[:json].to_s
+    }
+  end
 
   before { host! 'api.piggybank.test' }
 
@@ -34,7 +40,7 @@ RSpec.describe 'Users API', type: :request do
 
   describe 'POST /users' do
     before do
-      post "/v1/users", params: { user: user_params }
+      post "/v1/users", params: { user: user_params }.to_json, headers: headers
     end
 
     context 'when request params are valid' do
@@ -63,7 +69,7 @@ RSpec.describe 'Users API', type: :request do
 
   describe 'PUT /users/:id' do
     before do
-      put "/v1/users/#{user_id}", params: { user: user_params }
+      put "/v1/users/#{user_id}", params: { user: user_params }.to_json, headers: headers
     end
 
     context 'when request params are valid' do
@@ -89,7 +95,7 @@ RSpec.describe 'Users API', type: :request do
 
   describe 'DELETE /users/:id' do
     before do
-      delete "/v1/users/#{user_id}", params: { user: user_params }
+      delete "/v1/users/#{user_id}", params: { user: user_params }.to_json, headers: headers
     end
 
     context 'when request params are valid' do
