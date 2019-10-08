@@ -13,7 +13,6 @@ Dir[File.dirname(__FILE__) + '/support/**/*.rb'].each { |f| require f }
 Dir[File.dirname(__FILE__) + '/helpers/**/*.rb'].each { |f| require f }
 Dir[File.dirname(__FILE__) + '/spec/helpers/**/*.rb'].each { |f| require f }
 Dir[File.dirname(__FILE__) + '/spec/support/**/*.rb'].each { |f| require f }
-include JsonAPIHelper
 
 ENV['RAILS_ENV'] ||= 'test'
 abort('The Rails environment production mode!') if Rails.env.production?
@@ -70,7 +69,7 @@ RSpec.configure do |config|
 
   config.include(Shoulda::Matchers::ActiveModel, type: :model)
   config.include(Shoulda::Matchers::ActiveRecord, type: :model)
-  config.include JsonAPIHelper, type: :request #only in request test types
+  config.include JsonAPIHelper, type: :request # only in request test types
 end
 
 Shoulda::Matchers.configure do |config|
