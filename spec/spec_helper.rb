@@ -1,8 +1,9 @@
 # frozen_string_literal: true
+
 require 'dotenv'
 Dotenv.load
 
-require File.expand_path("../../config/environment", __FILE__)
+require File.expand_path('../config/environment', __dir__)
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
