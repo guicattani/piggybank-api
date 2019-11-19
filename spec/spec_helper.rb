@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'dotenv'
+require 'pry'
 Dotenv.load
 
 require File.expand_path('../config/environment', __dir__)

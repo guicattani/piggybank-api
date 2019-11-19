@@ -19,7 +19,8 @@ psql
 8. Bundle install with `bundle`  
 9. Run `rails db:create`
 10. Run `rails db:migrate && rails db:migrate RAILS_ENV=test`
-11. Run test suite with `bundle exec guard` and press Enter
+11. Copy .env.sample  and rename it to .env
+12. Run test suite with `bundle exec guard` and press Enter
 
 Bonus: If using VSCODE use the WSL Remote extension to run the console directly in WSL
 
@@ -39,4 +40,5 @@ psql
 6. Bundle install with `bundle`  
 7. Run `rails db:create`
 8. Run `rails db:migrate && rails db:migrate RAILS_ENV=test`
-9. Run test suite with `bundle exec guard` and press Enter
+9. Copy .env.sample  and rename it to .env
+10. Run test suite with `bundle exec guard` and press Enter
