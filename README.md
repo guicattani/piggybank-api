@@ -10,7 +10,7 @@
 `sudo apt-get -y install postgresql postgresql-contrib libpq-dev`
 6. Set up Postgres user as `postgres`, password `postgres`
 ``` 
-su -iu postgres
+su -l postgres
 psql
 
 \password postgres
@@ -31,7 +31,7 @@ Bonus: If using VSCODE use the WSL Remote extension to run the console directly 
 `sudo apt-get -y install postgresql postgresql-contrib libpq-dev`
 4. Set up Postgres user as `postgres`, password `postgres`
 ``` 
-su -iu postgres
+su -l postgres
 psql
 
 \password postgres
