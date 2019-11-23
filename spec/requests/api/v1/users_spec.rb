@@ -16,7 +16,7 @@ RSpec.describe 'Users API', type: :request do
 
   describe 'GET /users/:id' do
     before do
-      get "/v1/users/#{user_id}", headers: headers
+      get "/users/#{user_id}", headers: headers
     end
 
     context 'when user exists' do
@@ -40,7 +40,7 @@ RSpec.describe 'Users API', type: :request do
 
   describe 'POST /users' do
     before do
-      post "/v1/users", params: { user: user_params }.to_json, headers: headers
+      post "/users", params: { user: user_params }.to_json, headers: headers
     end
 
     context 'when request params are valid' do
@@ -69,7 +69,7 @@ RSpec.describe 'Users API', type: :request do
 
   describe 'PUT /users/:id' do
     before do
-      put "/v1/users/#{user_id}", params: { user: user_params }.to_json, headers: headers
+      put "/users/#{user_id}", params: { user: user_params }.to_json, headers: headers
     end
 
     context 'when request params are valid' do
@@ -95,7 +95,7 @@ RSpec.describe 'Users API', type: :request do
 
   describe 'DELETE /users/:id' do
     before do
-      delete "/v1/users/#{user_id}", params: { user: user_params }.to_json, headers: headers
+      delete "/users/#{user_id}", params: { user: user_params }.to_json, headers: headers
     end
 
     context 'when request params are valid' do
