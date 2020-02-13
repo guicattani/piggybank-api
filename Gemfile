@@ -26,6 +26,8 @@ gem 'fast_jsonapi'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'dotenv-rails'
+  gem 'factory_bot'
   gem 'pry-byebug'
 end
 
@@ -40,13 +42,11 @@ end
 
 group :test do
   gem 'database_cleaner'
-  gem 'factory_bot'
   gem 'faker'
   gem 'rspec-rails', '~> 4.0.0.beta2'
   gem 'shoulda-matchers'
   gem 'simplecov', require: false
 end
 
-gem 'dotenv-rails'
 gem 'devise'
 gem 'devise-jwt', '~> 0.5.9'
