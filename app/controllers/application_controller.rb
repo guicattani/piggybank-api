@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::API
+  include Security
+  include Authorization
+  include ResponseHelper
+
   def render_resource(resource)
     if resource.errors.empty?
       render json: resource

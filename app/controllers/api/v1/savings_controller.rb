@@ -2,11 +2,20 @@
 
 class Api::V1::SavingsController < ApplicationController
   before_action :set_saving, only: %i[show update destroy]
+  before_action -> { authenticate(%w[user]) }
 
   def index
-    @savings = Saving.all
+    @savings = Saving.by_user(current_user.id).all
 
     render json: @savings
+  end
+
+  def show
+    if @saving
+      render json: @saving, status: :created, location: @saving
+    else
+      render json: @saving.errors, status: :unprocessable_entity
+    end
   end
 
   def create

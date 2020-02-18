@@ -7,6 +7,7 @@ require 'factory_bot'
 require 'database_cleaner'
 require 'faker'
 require 'simplecov'
+require_relative 'support/controller_macros'
 SimpleCov.start.to_json
 
 Dir[File.dirname(__FILE__) + '/support/**/*.rb'].sort.each { |f| require f }
@@ -17,12 +18,17 @@ Dir[File.dirname(__FILE__) + '/spec/support/**/*.rb'].sort.each { |f| require f 
 abort('The Rails environment production mode!') if Rails.env.production?
 abort('The Rails environment development mode!') if Rails.env.development?
 
+# rubocop:disable Style/MixinUsage
+include JsonAPIHelper
+# rubocop:enable Style/MixinUsage
+
 begin
   ActiveRecord::Migration.maintain_test_schema!
 rescue ActiveRecord::PendingMigrationError => e
   puts e.to_s.strip
   exit 1
 end
+
 RSpec.configure do |config|
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
@@ -52,6 +58,9 @@ RSpec.configure do |config|
   config.include(Shoulda::Matchers::ActiveModel, type: :model)
   config.include(Shoulda::Matchers::ActiveRecord, type: :model)
   config.include JsonAPIHelper, type: :request # only in request test types
+
+  config.include Devise::Test::ControllerHelpers, type: :controller
+  config.extend ControllerMacros, type: :controller
 end
 
 Shoulda::Matchers.configure do |config|
