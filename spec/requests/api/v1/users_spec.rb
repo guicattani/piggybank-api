@@ -2,17 +2,12 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Users API', type: :request do
+RSpec.describe 'V1 Users API', type: :request do
   let!(:user) { FactoryBot.create(:user) }
   let(:user_id) { user.id }
-  let(:headers) do
-    {
-      'Accept' => 'application/vnd.piggybank.v1',
-      'Content-Type' => Mime[:json].to_s
-    }
-  end
+  let(:headers) { piggybank_header('v1') }
 
-  before { host! 'api.piggybank.test' }
+  before { host! ENV['TEST_HOST'] }
 
   describe 'GET /users/:id' do
     before do

@@ -20,6 +20,7 @@ abort('The Rails environment development mode!') if Rails.env.development?
 
 # rubocop:disable Style/MixinUsage
 include JsonAPIHelper
+include HeaderHelper
 # rubocop:enable Style/MixinUsage
 
 begin

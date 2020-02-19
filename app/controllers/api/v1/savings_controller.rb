@@ -43,7 +43,7 @@ class Api::V1::SavingsController < ApplicationController
   private
 
   def set_saving
-    @saving = Saving.by_user.find(params[:id])
+    @saving = Saving.by_user(current_user.id).find(params[:id])
   end
 
   def saving_params
