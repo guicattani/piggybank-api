@@ -4,6 +4,8 @@ class Api::V1::SavingsController < ApplicationController
   before_action :set_saving, only: %i[show update destroy]
   before_action -> { authenticate(%w[user]) }
 
+  respond_to :json
+
   def index
     @savings = Saving.by_user(current_user.id).all
 
@@ -12,27 +14,27 @@ class Api::V1::SavingsController < ApplicationController
 
   def show
     if @saving
-      render json: @saving, status: :created, location: @saving
+      render json: serialize(@saving).serialized_json, status: :ok
     else
       render json: @saving.errors, status: :unprocessable_entity
     end
   end
 
   def create
-    @saving = Saving.new(saving_params).merge(current_user.id)
+    @saving = Saving.new(saving_params.merge(user_id: current_user.id))
 
     if @saving.save
-      render json: @saving, status: :created, location: @saving
+      render json: serialize(@saving).serialized_json, status: :created
     else
-      render json: @saving.errors, status: :unprocessable_entity
+      render json: { errors: @saving.errors }, status: :unprocessable_entity
     end
   end
 
   def update
     if @saving.update(saving_params)
-      render json: @saving
+      render json: serialize(@saving).serialized_json, status: :ok
     else
-      render json: @saving.errors, status: :unprocessable_entity
+      render json: { errors: @saving.errors }, status: :unprocessable_entity
     end
   end
 
@@ -44,9 +46,15 @@ class Api::V1::SavingsController < ApplicationController
 
   def set_saving
     @saving = Saving.by_user(current_user.id).find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    render_not_found
   end
 
   def saving_params
-    params.permit(:value_in_cents, :objetive_date, :objective_value_in_cents, :color)
+    params.permit(:value_in_cents, :currency, :objective_date, :objective_value_in_cents, :color)
+  end
+
+  def serialize(saving)
+    V1::SavingSerializer.new(saving)
   end
 end

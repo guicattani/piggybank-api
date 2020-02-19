@@ -62,6 +62,9 @@ RSpec.configure do |config|
 
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.extend ControllerMacros, type: :controller
+
+  config.include Devise::Test::IntegrationHelpers, type: :request
+  config.extend RequestMacros, type: :request
 end
 
 Shoulda::Matchers.configure do |config|

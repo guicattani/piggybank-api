@@ -3,7 +3,7 @@
 class Saving < ApplicationRecord
   belongs_to :user
   validates :color, format: { with: /(0x|#)(?:[\da-f]{3}){1,2}/ }
-  validates :currency, inclusion: { in: ['R$', '$'] }
+  validates :currency, inclusion: { in: %w[brl usd] }
   validate :objective_value_or_date
   validate :future_objective_date
   validate :positive_objective_value
