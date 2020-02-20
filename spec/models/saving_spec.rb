@@ -20,6 +20,8 @@ RSpec.describe Saving, type: :model do
 
       expect(FactoryBot.build(:saving, color: "123")).not_to be_valid
       expect(FactoryBot.build(:saving, color: "123456")).not_to be_valid
+      expect(FactoryBot.build(:saving, color: "#0x123456")).not_to be_valid
+      expect(FactoryBot.build(:saving, color: "0x#123456")).not_to be_valid
     end
   end
 

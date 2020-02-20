@@ -36,4 +36,32 @@ RSpec.describe 'V1 Savings API', type: :request do
       let!(:attribute) { { name: 'color', content: saving.color, invalid_content: '0x1'} }
     end
   end
+
+  describe 'PUT /savings/:id' do
+    before do
+      user = FactoryBot.create(:user)
+      sign_in user
+      saving.update(user_id: user.id)
+    end
+
+    it_behaves_like 'a regular #put action' do
+      let!(:endpoint) { { name: "savings" } }
+      let!(:endpoint_subject) { { name: "saving", id: saving_id } }
+      let!(:attribute) { { name: 'color', content: '0x654321', invalid_content: '0x1'} }
+    end
+  end
+
+  describe 'DELETE /savings/:id' do
+    before do
+      user = FactoryBot.create(:user)
+      sign_in user
+      saving.update(user_id: user.id)
+    end
+
+    it_behaves_like 'a regular #delete action' do
+      let!(:endpoint) { { name: "savings" } }
+      let!(:endpoint_subject) { { name: "saving", id: saving_id } }
+      let!(:class_name) { "Saving" }
+    end
+  end
 end

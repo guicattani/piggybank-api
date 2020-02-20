@@ -3,7 +3,7 @@
 FactoryBot.define do
   factory :saving do
     association :user, factory: :user
-    color { '#0x123456' }
+    color { '0x123456' }
     currency { 'usd' }
     objective_date { Date.tomorrow }
 
