@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 require 'dotenv'
+require 'pry'
 Dotenv.load
 
+ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../config/environment', __dir__)
-
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true

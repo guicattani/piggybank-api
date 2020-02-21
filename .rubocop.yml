@@ -1,14 +1,14 @@
-Documentation:
+Style/Documentation:
   Enabled: false
 Style/ClassAndModuleChildren:
   Enabled: false
-BlockLength:
+Metrics/BlockLength:
   Enabled: false
 Metrics/MethodLength:
   Max: 20
 Metrics/ClassLength:
   Max: 200
-Metrics/LineLength:
+Layout/LineLength:
   Max: 100
 AllCops:
   TargetRubyVersion: 2.3
