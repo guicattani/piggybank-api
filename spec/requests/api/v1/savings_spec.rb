@@ -7,15 +7,21 @@ RSpec.describe 'V1 Savings API', type: :request do
   let(:saving_id) { saving.id }
   let(:headers) { piggybank_header('v1') }
 
-  before { host! ENV['TEST_HOST'] }
+  before(:each) do
+    host! ENV['TEST_HOST']
+
+    user = FactoryBot.create(:user)
+    sign_in user
+    saving.update(user_id: user.id)
+  end
+
+  describe 'GET /savings/' do
+    it_behaves_like 'a regular #index action' do
+      let!(:endpoint) { { name: "savings" } }
+    end
+  end
 
   describe 'GET /savings/:id' do
-    before do
-      user = FactoryBot.create(:user)
-      sign_in user
-      saving.update(user_id: user.id)
-    end
-
     it_behaves_like 'a regular #show action' do
       let!(:endpoint) { { name: "savings" } }
       let!(:endpoint_subject) { { id: saving_id } }
@@ -24,12 +30,6 @@ RSpec.describe 'V1 Savings API', type: :request do
   end
 
   describe 'POST /savings' do
-    before do
-      user = FactoryBot.create(:user)
-      sign_in user
-      saving.update(user_id: user.id)
-    end
-
     it_behaves_like 'a regular #create action' do
       let!(:endpoint) { { name: "savings" } }
       let!(:endpoint_subject) { { name: "saving", id: saving_id } }
@@ -38,12 +38,6 @@ RSpec.describe 'V1 Savings API', type: :request do
   end
 
   describe 'PUT /savings/:id' do
-    before do
-      user = FactoryBot.create(:user)
-      sign_in user
-      saving.update(user_id: user.id)
-    end
-
     it_behaves_like 'a regular #put action' do
       let!(:endpoint) { { name: "savings" } }
       let!(:endpoint_subject) { { name: "saving", id: saving_id } }
@@ -52,12 +46,6 @@ RSpec.describe 'V1 Savings API', type: :request do
   end
 
   describe 'DELETE /savings/:id' do
-    before do
-      user = FactoryBot.create(:user)
-      sign_in user
-      saving.update(user_id: user.id)
-    end
-
     it_behaves_like 'a regular #delete action' do
       let!(:endpoint) { { name: "savings" } }
       let!(:endpoint_subject) { { name: "saving", id: saving_id } }

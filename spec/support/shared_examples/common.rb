@@ -1,5 +1,30 @@
 # frozen_string_literal: true
 
+RSpec.shared_examples 'a regular #index action' do
+  context 'when subject exists' do
+    before do
+      get "/#{endpoint[:name]}", headers: headers
+    end
+
+    it "returns list of subjects" do
+      expect(parsed_response).not_to be_empty
+    end
+
+    it 'returns status 200' do
+      expect(response).to have_http_status(200)
+    end
+  end
+
+  context "when subject does not exists" do
+    before { DatabaseCleaner.clean }
+    it 'returns status 404' do
+      get "/#{endpoint[:name]}", headers: headers
+
+      expect(parsed_response).to be_empty
+    end
+  end
+end
+
 RSpec.shared_examples 'a regular #show action' do
   context 'when subject exists' do
     before do

@@ -13,11 +13,7 @@ class Api::V1::SavingsController < ApplicationController
   end
 
   def show
-    if @saving
-      render json: serialize(@saving).serialized_json, status: :ok
-    else
-      render json: @saving.errors, status: :unprocessable_entity
-    end
+    render json: serialize(@saving).serialized_json, status: :ok
   end
 
   def create

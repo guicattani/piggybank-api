@@ -9,14 +9,14 @@
 5. Install Postgres with
 `sudo apt-get -y install postgresql postgresql-contrib libpq-dev`
 6. Set up Postgres user as `postgres`, password `postgres`
-``` 
+```
 su -l postgres
 psql
 
 \password postgres
 ```
 7. Install bundler with `gem install bundler`
-8. Bundle install with `bundle`  
+8. Bundle install with `bundle`
 9. Run `rails db:create`
 10. Run `rails db:migrate && rails db:migrate RAILS_ENV=test`
 11. Copy .env.sample  and rename it to .env
@@ -30,14 +30,14 @@ Bonus: If using VSCODE use the WSL Remote extension to run the console directly 
 3. Install Postgres with
 `sudo apt-get -y install postgresql postgresql-contrib libpq-dev`
 4. Set up Postgres user as `postgres`, password `postgres`
-``` 
+```
 su -l postgres
 psql
 
 \password postgres
 ```
 5. Install bundler with `gem install bundler`
-6. Bundle install with `bundle`  
+6. Bundle install with `bundle`
 7. Run `rails db:create`
 8. Run `rails db:migrate && rails db:migrate RAILS_ENV=test`
 9. Copy .env.sample  and rename it to .env
