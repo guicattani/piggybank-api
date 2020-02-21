@@ -33,7 +33,7 @@ RSpec.describe 'V1 Savings API', type: :request do
     it_behaves_like 'a regular #create action' do
       let!(:endpoint) { { name: "savings" } }
       let!(:endpoint_subject) { { name: "saving", id: saving_id } }
-      let!(:attribute) { { name: 'color', content: saving.color, invalid_content: '0x1'} }
+      let!(:attribute) { { name: 'color', content: saving.color, invalid_content: '0x1' } }
     end
   end
 
@@ -47,7 +47,7 @@ RSpec.describe 'V1 Savings API', type: :request do
     it_behaves_like 'a regular #put action' do
       let!(:endpoint) { { name: "savings" } }
       let!(:endpoint_subject) { { name: "saving", id: saving_id } }
-      let!(:attribute) { { name: 'color', content: '0x654321', invalid_content: '0x1'} }
+      let!(:attribute) { { name: 'color', content: '0x654321', invalid_content: '0x1' } }
     end
   end
 

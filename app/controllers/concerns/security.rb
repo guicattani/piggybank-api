@@ -24,6 +24,7 @@ module Security
 
   def invalid_fields?
     return true if params['uid']
+
     (profile_params.keys.map(&:to_sym) - role_params).any?
   end
 
@@ -42,6 +43,7 @@ module Security
 
   def reset_resource
     return current_admin if current_admin
+
     requested_resource
   end
 
@@ -54,7 +56,9 @@ module Security
   end
 
   def current_role
-    instance_eval("current_#{role}")
+    instance_eval <<-RUBY, __FILE__, __LINE__ + 1
+      "current_#{role}"
+    RUBY
   end
 
   def role_class

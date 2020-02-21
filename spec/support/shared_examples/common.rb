@@ -24,7 +24,6 @@ RSpec.shared_examples 'a regular #show action' do
   end
 end
 
-
 RSpec.shared_examples 'a regular #create action' do
   before do
     post "/#{endpoint[:name]}",
@@ -61,12 +60,14 @@ end
 RSpec.shared_examples 'a regular #put action' do
   before do
     put "/#{endpoint[:name]}/#{endpoint_subject[:id]}",
-      params: endpoint_subject_params.to_json, headers: headers
+        params: endpoint_subject_params.to_json, headers: headers
   end
 
   context 'when request params are valid' do
-    let(:endpoint_subject_params) { { id: endpoint_subject[:id],
-                                      "#{attribute[:name]}": attribute[:content] } }
+    let(:endpoint_subject_params) do
+      { id: endpoint_subject[:id],
+        "#{attribute[:name]}": attribute[:content] }
+    end
 
     it 'returns status 200' do
       expect(response).to have_http_status(200)
@@ -78,16 +79,16 @@ RSpec.shared_examples 'a regular #put action' do
   end
 
   context 'when request params are not valid' do
-    let(:endpoint_subject_params) { { id: endpoint_subject[:id],
-                                      "#{attribute[:name]}": attribute[:invalid_content] } }
+    let(:endpoint_subject_params) do
+      { id: endpoint_subject[:id],
+        "#{attribute[:name]}": attribute[:invalid_content] }
+    end
 
     it 'returns status 422' do
       expect(response).to have_http_status(422)
     end
   end
 end
-
-
 
 RSpec.shared_examples 'a regular #delete action' do
   before do
@@ -101,8 +102,14 @@ RSpec.shared_examples 'a regular #delete action' do
       expect(response).to have_http_status(204)
     end
 
+    # rubocop:disable Security/Eval
+    # rubocop:disable Style/EvalWithLocation
     it 'user is deleted for good' do
-      expect(eval("#{class_name}.find_by(id: endpoint_subject[:id])")).to be_nil
+      expect(
+        eval("#{class_name}.find_by(id: endpoint_subject[:id])")
+      ).to be_nil
     end
+    # rubocop:enable Style/EvalWithLocation
+    # rubocop:enable Security/Eval
   end
 end

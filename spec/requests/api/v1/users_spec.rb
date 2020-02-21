@@ -18,7 +18,7 @@ RSpec.describe 'V1 Users API', type: :request do
     it_behaves_like 'a regular #put action' do
       let!(:endpoint) { { name: "users" } }
       let!(:endpoint_subject) { { name: "user", id: user_id } }
-      let!(:attribute) { { name: 'email', content: 'new@new.com', invalid_content: 'invalid'} }
+      let!(:attribute) { { name: 'email', content: 'new@new.com', invalid_content: 'invalid' } }
     end
   end
 end
