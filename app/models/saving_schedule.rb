@@ -2,14 +2,19 @@
 
 class SavingSchedule < ApplicationRecord
   validates :active, inclusion: { in: [true, false] }
-  validates :description, allow_nil: false
   validates :period, inclusion: { in: ['day, week, month'] }
-  # validate :value_in_cents
+  validates_presence_of :description
+  validate :positive_value_in_cents
+  validate :positive_period_value
 
-  # t.boolean :active
-  # t.integer :value_in_cents
-  # t.string :description
-  # t.string :period
-  # t.integer :period_value
+  private
+
+  def positive_value_in_cents
+    value_in_cents > 0
+  end
+
+  def positive_period_value
+    period_value > 0
+  end
 
 end
