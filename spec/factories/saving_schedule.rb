@@ -5,5 +5,7 @@ FactoryBot.define do
     description { 'month paycheck' }
     active { true }
     period { 'month' }
+    value_in_cents { 2_000_00 }
+    period_value { 1 }
   end
 end
