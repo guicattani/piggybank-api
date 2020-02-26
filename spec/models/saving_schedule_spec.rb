@@ -22,4 +22,31 @@ RSpec.describe SavingSchedule, type: :model do
       expect(subject).not_to be_valid
     end
   end
+
+  context 'after create' do
+    subject { FactoryBot.build(:saving_schedule) }
+    context 'next date' do
+      it 'calculates a day offset' do
+        subject.period = 'day'
+        subject.period_value = 1
+
+        subject.save
+        expect(subject.next_date).to eq(Date.today + 1.day)
+      end
+      it 'calculates a day offset' do
+        subject.period = 'week'
+        subject.period_value = 1
+
+        subject.save
+        expect(subject.next_date).to eq(Date.today + 1.week)
+      end
+      it 'calculates a month offset' do
+        subject.period = 'month'
+        subject.period_value = 1
+
+        subject.save
+        expect(subject.next_date).to eq(Date.today + 1.month)
+      end
+    end
+  end
 end
