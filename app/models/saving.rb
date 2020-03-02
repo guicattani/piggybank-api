@@ -8,6 +8,8 @@ class Saving < ApplicationRecord
   validate :future_objective_date
   validate :positive_objective_value
 
+  before_create :initialize_value_in_cents, :validate_presence_of_value_in_cents
+
   scope :by_user, ->(user_id) { where(user_id: user_id) }
 
   def objective_value_or_date
@@ -27,5 +29,17 @@ class Saving < ApplicationRecord
     return true if objective_value_in_cents.nil?
 
     objective_value_in_cents.positive?
+  end
+
+  private
+
+  def initialize_value_in_cents
+    self.value_in_cents = 0
+  end
+
+  def validate_presence_of_value_in_cents
+    return unless value_in_cents.nil?
+
+    errors.add(:value_in_cents, 'value_in_cents has to be present')
   end
 end

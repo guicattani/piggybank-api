@@ -23,6 +23,10 @@ RSpec.describe Saving, type: :model do
       expect(FactoryBot.build(:saving, color: "#0x123456")).not_to be_valid
       expect(FactoryBot.build(:saving, color: "0x#123456")).not_to be_valid
     end
+
+    it 'validates that the starting value in cents is zero' do
+      expect(FactoryBot.create(:saving).value_in_cents).to eq(0)
+    end
   end
 
   context 'scopes' do
