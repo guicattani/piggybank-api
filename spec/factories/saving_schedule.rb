@@ -2,6 +2,7 @@
 
 FactoryBot.define do
   factory :saving_schedule do
+    association :saving, factory: :saving
     description { 'month paycheck' }
     active { true }
     period { 'month' }

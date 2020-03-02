@@ -5,6 +5,7 @@ require 'rails_helper'
 RSpec.describe SavingSchedule, type: :model do
   context 'validations' do
     subject { FactoryBot.build(:saving_schedule) }
+    it { should belong_to(:saving) }
     it { should validate_presence_of(:description) }
     it { should validate_presence_of(:value_in_cents) }
     it { should validate_presence_of(:period_value) }
@@ -30,21 +31,21 @@ RSpec.describe SavingSchedule, type: :model do
         subject.period = 'day'
         subject.period_value = 1
 
-        subject.save
+        expect(subject.save).to be_truthy
         expect(subject.next_date).to eq(Date.today + 1.day)
       end
       it 'calculates a day offset' do
         subject.period = 'week'
         subject.period_value = 1
 
-        subject.save
+        expect(subject.save).to be_truthy
         expect(subject.next_date).to eq(Date.today + 1.week)
       end
       it 'calculates a month offset' do
         subject.period = 'month'
         subject.period_value = 1
 
-        subject.save
+        expect(subject.save).to be_truthy
         expect(subject.next_date).to eq(Date.today + 1.month)
       end
     end

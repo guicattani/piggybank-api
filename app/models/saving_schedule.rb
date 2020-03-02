@@ -1,16 +1,18 @@
 # frozen_string_literal: true
 
 class SavingSchedule < ApplicationRecord
+  belongs_to :saving
   validates :period, inclusion: { in: %w[day week month] }
-  validates_presence_of :description, :period, :active, :value_in_cents, :period_value
   validates :value_in_cents, numericality: { greater_than: 0 }
   validates :period_value, numericality: { greater_than: 0 }
+  validates_presence_of :description, :period, :active, :value_in_cents, :period_value
 
-  after_create :create_next_date
+  before_create :calculate_next_date, :validate_presence_of_next_date
 
-  private
+  scope :active, -> { where(active: true) }
+  scope :next_date_is_today, -> { where(next_date: Date.today) }
 
-  def create_next_date
+  def calculate_next_date
     case period
     when 'day'
       self.next_date = Date.today + period_value.days
@@ -19,5 +21,13 @@ class SavingSchedule < ApplicationRecord
     when 'month'
       self.next_date = Date.today + period_value.months
     end
+  end
+
+  private
+
+  def validate_presence_of_next_date
+    return unless next_date.nil?
+
+    errors.add(:next_date, 'next_date has to be present')
   end
 end
