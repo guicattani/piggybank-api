@@ -21,5 +21,8 @@ RSpec.describe DayPassWorker do
 
       expect(saving_schedule.reload.next_date).not_to eq(Date.today)
     end
+    it 'creates a saving transaction' do
+      expect { subject.perform }.to change(SavingTransaction, :count).by(1)
+    end
   end
 end

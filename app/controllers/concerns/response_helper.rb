@@ -1,14 +1,6 @@
 # frozen_string_literal: true
 
 module ResponseHelper
-  def render_created(resource)
-    render_resource(resource, :created)
-  end
-
-  def render_ok(resource)
-    render_resource(resource, :ok)
-  end
-
   def render_unprocessable_entity(message = 'Unprocessable entity')
     render json: { errors: message }, status: :unprocessable_entity
   end

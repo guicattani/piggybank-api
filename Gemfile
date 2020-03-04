@@ -27,6 +27,7 @@ group :development, :test do
   gem 'dotenv-rails'
   gem 'factory_bot'
   gem 'pry-byebug'
+  gem 'rubocop'
 end
 
 group :development do

@@ -15,7 +15,9 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json }, path: '/' do
     namespace :v1, constraints: ApiVersionConstraint.new(version: 1, default: true), path: '/'do
       resources :savings
-      resources :users, only: [:show, :create, :update, :destroy]
+      resources :saving_transactions, only: [:index, :create, :update, :destroy]
+      resources :savings_schedules
+      resources :users, only: [:update]
     end
   end
 end

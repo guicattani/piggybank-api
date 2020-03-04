@@ -7,6 +7,7 @@ RSpec.shared_examples 'a regular #index action' do
     end
 
     it "returns list of subjects" do
+      expect(parsed_response.first.key?("errors")).to be_falsey
       expect(parsed_response).not_to be_empty
     end
 
