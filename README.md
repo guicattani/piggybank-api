@@ -1,4 +1,8 @@
-# Piggybank-Api
+# Piggybank-API
+
+Piggybank is a personal project to create a habit of saving money. You can specify how much you will save in each time period and have the application asynchronously save this value for you each time this period passes.
+
+While the interface has not been finished, a mock-up interface was made by Clarissa Vasconcelos and is acessible here: [Figma](https://www.figma.com/proto/TOg7AfVMKRtWYeKaiMuxeg/Piggy-Project?scaling=scale-down&node-id=9%3A313)
 
 # Getting Started
 ### Windows
