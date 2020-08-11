@@ -1,0 +1,56 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+# This workflow will download a prebuilt Ruby version, install dependencies and run tests with Rake
+# For more information see: https://github.com/marketplace/actions/setup-ruby-jruby-and-truffleruby
+
+name: Ruby
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Setup Redis
+      uses: zhulik/redis-action@1.1.0
+    - name: Setup PostgreSQL
+      uses: Harmon758/postgresql-action@v1.0.0
+      with:
+        postgresql db: $DATABASE_NAME_TEST
+        postgresql user: $DATABASE_USERNAME
+        postgresql password: $DATABASE_PASSWORD
+      env:
+        DATABASE_NAME_TEST: backend-api_test
+        DATABASE_USERNAME: postgres
+        DATABASE_PASSWORD: postgres
+    - uses: actions/checkout@v2
+    - name: Set up Ruby
+    # To automatically get bug fixes and new Ruby versions for ruby/setup-ruby,
+    # change this to (see https://github.com/ruby/setup-ruby#versioning):
+    # uses: ruby/setup-ruby@v1
+      uses: ruby/setup-ruby@ec106b438a1ff6ff109590de34ddc62c540232e0
+      with:
+        ruby-version: 2.5.1
+    - name: Install dependencies
+      run: |
+           sudo apt-get install libcurl4-openssl-dev
+           bundle --jobs 4
+    - name: Set up environment variables
+      run: |
+           cp .env.sample .env
+           cp config/database.yml.sample config/database.yml
+    - name: Create test database
+      run: RAILS_ENV=test bundle exec rake db:create
+    - name: Migrate test database
+      run: RAILS_ENV=test bundle exec rake db:migrate
+    - name: Run tests
+      run: bundle exec rspec
+  
