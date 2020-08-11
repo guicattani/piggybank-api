@@ -41,6 +41,7 @@ jobs:
         ruby-version: 2.5.1
     - name: Install dependencies
       run: |
+           gem install bundler
            sudo apt-get install libcurl4-openssl-dev
            bundle --jobs 4
     - name: Set up environment variables
