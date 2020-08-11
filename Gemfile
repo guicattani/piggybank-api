@@ -50,4 +50,4 @@ end
 gem 'sidekiq'
 gem 'clockwork'
 gem 'devise'
-gem 'devise-jwt', '~> 0.5.9'
+gem 'devise-jwt', '~> 0.6.0'
