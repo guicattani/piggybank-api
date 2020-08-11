@@ -43,6 +43,7 @@ jobs:
       run: |
            sudo apt-get install libcurl4-openssl-dev
            bundle --jobs 4
+           bundle update --source warden-jwt_auth
     - name: Set up environment variables
       run: |
            cp .env.sample .env
