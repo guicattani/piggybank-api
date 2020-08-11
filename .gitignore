@@ -66,3 +66,4 @@ yarn-debug.log*
 !/storage/.keep
 
 /.history
+Gemfile.lock
