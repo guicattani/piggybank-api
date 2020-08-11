@@ -41,13 +41,12 @@ jobs:
         ruby-version: 2.5.1
     - name: Install dependencies
       run: |
-           gem install bundler
            sudo apt-get install libcurl4-openssl-dev
            bundle --jobs 4
+           bundle update --source warden-jwt_auth
     - name: Set up environment variables
       run: |
            cp .env.sample .env
-           cp config/database.yml.sample config/database.yml
     - name: Create test database
       run: RAILS_ENV=test bundle exec rake db:create
     - name: Migrate test database
