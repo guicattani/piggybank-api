@@ -1,3 +1,4 @@
+![Ruby](https://github.com/CapsuleMaglev/piggybank-api/workflows/Ruby/badge.svg?branch=master)
 # Piggybank-API
 
 Piggybank is a personal project to create a habit of saving money. You can specify how much you will save in each time period and have the application asynchronously save this value for you each time this period passes.
